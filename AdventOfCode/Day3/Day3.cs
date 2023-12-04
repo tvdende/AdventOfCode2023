@@ -32,7 +32,7 @@ public class Day3
             .Where(e => e != '.')
             .Distinct();
 
-        List<Coordinate?> posibleCoordinates = new List<Coordinate?>();
+        List<Coordinate?> possibleCoordinates = new List<Coordinate?>();
         for (int y = 0; y < lines.Count(); y++)
         {
             for (int x = 0; x < lines[y].Length; x++)
@@ -40,23 +40,23 @@ public class Day3
                 if (allSymbols.Contains(lines[y][x]))
                 {
                     // left right
-                    posibleCoordinates.Add(LookIfDigit(x - 1, y));
-                    posibleCoordinates.Add(LookIfDigit(1 + x, y));
+                    possibleCoordinates.Add(LookIfDigit(x - 1, y));
+                    possibleCoordinates.Add(LookIfDigit(1 + x, y));
                     // up left right
-                    posibleCoordinates.Add(LookIfDigit(x, y + 1));
-                    posibleCoordinates.Add(LookIfDigit(x - 1, y + 1));
-                    posibleCoordinates.Add(LookIfDigit(x + 1, y + 1));
+                    possibleCoordinates.Add(LookIfDigit(x, y + 1));
+                    possibleCoordinates.Add(LookIfDigit(x - 1, y + 1));
+                    possibleCoordinates.Add(LookIfDigit(x + 1, y + 1));
 
                     // Down left right
-                    posibleCoordinates.Add(LookIfDigit(x, y - 1));
-                    posibleCoordinates.Add(LookIfDigit(x - 1, y - 1));
-                    posibleCoordinates.Add(LookIfDigit(x + 1, y - 1));
+                    possibleCoordinates.Add(LookIfDigit(x, y - 1));
+                    possibleCoordinates.Add(LookIfDigit(x - 1, y - 1));
+                    possibleCoordinates.Add(LookIfDigit(x + 1, y - 1));
                 }
             }
         }
         
-        var coordinates = posibleCoordinates.Where(e => e.HasValue)
-                                            .Select(e => e.Value)
+        var coordinates = possibleCoordinates.Where(e => e.HasValue)
+                                            .Select(e => e!.Value)
                                             .ToList();
         var more = new List<Coordinate>();
         foreach (var coordinate in coordinates)
@@ -76,19 +76,19 @@ public class Day3
             }
 
         }
-        string b = null;
+        string? b = null;
         Coordinate? previous = null;
-        var orderdList = more.Distinct()
+        var orderedList = more.Distinct()
                               .OrderBy(e => e.y)
                               .ThenBy(e => e.x);
-        foreach (var a in orderdList)
+        foreach (var a in orderedList)
         {
             if (previous.HasValue)
             {
                 if (previous.Value.IsNextTo(a))
                 {
                     b += lines[a.y][a.x].ToString();
-                    if (orderdList.Last().y == a.y && orderdList.Last().x == a.x)
+                    if (orderedList.Last().y == a.y && orderedList.Last().x == a.x)
                         result += int.Parse(b);
                 }
                 else
