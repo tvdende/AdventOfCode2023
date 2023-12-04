@@ -31,7 +31,7 @@ public class Day2
         var result = 0;
         foreach (var line in lines)
         {
-            var gamePosible = true;
+            var gamePossible = true;
             var game = line.Split(":");
             var gameID = int.Parse(string.Join("", game[0].Where(e => char.IsDigit(e))));
             var hands = game[1].Split(";");
@@ -45,25 +45,25 @@ public class Day2
                         case string s when s.Contains("Red", StringComparison.InvariantCultureIgnoreCase):
                             if (int.Parse(string.Join("", s.Where(e => char.IsDigit(e)))) > DiceInGame.Red)
                             {
-                                gamePosible = false;
+                                gamePossible = false;
                             }
                             break;
                         case string s when s.Contains("Green", StringComparison.InvariantCultureIgnoreCase):
                             if (int.Parse(string.Join("", s.Where(e => char.IsDigit(e)))) > DiceInGame.Green)
                             {
-                                gamePosible = false;
+                                gamePossible = false;
                             }
                             break;
                         case string s when s.Contains("Blue", StringComparison.InvariantCultureIgnoreCase):
                             if (int.Parse(string.Join("", s.Where(e => char.IsDigit(e)))) > DiceInGame.Blue)
                             {
-                                gamePosible = false;
+                                gamePossible = false;
                             }
                             break;
                     }
                 }
             }
-            result += gamePosible ? gameID : 0;
+            result += gamePossible ? gameID : 0;
         }
         return result;
     }
