@@ -54,7 +54,7 @@ public class Day3
                 }
             }
         }
-        
+
         var coordinates = possibleCoordinates.Where(e => e.HasValue)
                                             .Select(e => e!.Value)
                                             .ToList();
@@ -104,6 +104,13 @@ public class Day3
                 b = lines[a.y][a.x].ToString();
             previous = a;
         }
+        return result;
+    }
+
+    public int part_2()
+    {
+        var result = 0;
+
         return result;
     }
 
