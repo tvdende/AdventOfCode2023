@@ -6,7 +6,7 @@ public class Day5
         public long sourceStart;
         public long destinationStart;
         public long length;
-        public long sourceEnd { get { return sourceStart + length; } }
+        public long sourceEnd { get { return sourceStart + (length - 1); } }
         public bool IsInRange(long source)
         {
             return source > sourceStart && source < sourceEnd;
@@ -50,9 +50,38 @@ public class Day5
     }
     public long Part_1()
     {
-        var seeds = lines.First().Replace("seeds: ", "").Split(" ").Select(e => long.Parse(e));
+        var seeds = lines.First()
+                         .Replace("seeds: ", "")
+                         .Split(" ")
+                         .Select(e => long.Parse(e));
 
+        return GetResult(seeds);
+    }
+    public long Part_2()
+    {
+        var seeds = lines.First()
+                         .Replace("seeds: ", "")
+                         .Split(" ")
+                         .Select(e => long.Parse(e))
+                         .ToArray();
+        List<long> allSeeds = new List<long>();
+        for (long i = 0; i < seeds.Count(); i++)
+        {
+            var start = seeds[i];
+            var end = seeds[i] + seeds[1 + i];
+            for (long s = start; s < end; s++)
+            {
+                allSeeds.Add(s);
+            }
+            i++;
+        }
+        return GetResult(allSeeds);
+    }
+
+    private long GetResult(IEnumerable<long> seeds)
+    {
         var resultList = new List<long>();
+        long counter = 0;
         foreach (var seed in seeds)
         {
             var soil = MapValues(SeedToSoil, seed);
@@ -63,10 +92,10 @@ public class Day5
             var humidity = MapValues(TemperatureToHumidity, temperature);
             var location = MapValues(HumidityToLocation, humidity);
             resultList.Add(location);
+            counter++;
         }
         return resultList.Min();
     }
-
     private long MapValues(List<Map> maps, long input)
     {
         var seedToSoilMap = maps.FirstOrDefault(e => e.IsInRange(input));

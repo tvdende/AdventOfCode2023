@@ -17,7 +17,8 @@ internal class Program
         // Console.WriteLine($"Day 4.1 -> {day4.Part_1()}");//551094
 
         var day5 = new Day5();
-        Console.WriteLine($"Day 5.1 -> {day5.Part_1()}");//248780756- 5923540
+        // Console.WriteLine($"Day 5.1 -> {day5.Part_1()}");// 579439039 incorrect => 248780756, 5923540
+        Console.WriteLine($"Day 5.2 -> {day5.Part_2()}");//  incorrect => 7873085, 7873085
     }
 
 
